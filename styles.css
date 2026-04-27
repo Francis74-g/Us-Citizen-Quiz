@@ -1,0 +1,68 @@
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.quiz-container {
+  background: rgb(81, 157, 219);
+  padding: 20px;
+  width: 400px;
+  border-radius: 10px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.correct {
+  background: lightgreen;
+}
+
+.incorrect {
+  background: lightcoral;
+}
+
+#nextBtn {
+  display: none;
+}
+
+#results {
+  display: none;
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  body {
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .quiz-container {
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  button {
+    padding: 12px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  .quiz-container {
+    padding: 14px;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+}
+
