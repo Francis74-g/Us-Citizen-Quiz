@@ -147,60 +147,73 @@ const questionEl = document.getElementById("question");
 const answersEl = document.getElementById("answers");
 const feedbackEl = document.getElementById("feedback");
 const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const restartBtn = document.getElementById("restartBtn");
 const scoreEl = document.getElementById("score");
 const progressEl = document.getElementById("progress");
-const resultsEl = document.getElementById("results");
-const quizEl = document.getElementById("quiz");
 
 function showQuestion() {
   feedbackEl.textContent = "";
   answersEl.innerHTML = "";
-  nextBtn.style.display = "none";
 
-  let q = questions[current];
+  const q = questions[current];
+
   questionEl.textContent = q.question;
   scoreEl.textContent = "Score: " + score;
   progressEl.textContent = `Question ${current + 1} of ${questions.length}`;
 
   q.answers.forEach(answer => {
-    let btn = document.createElement("button");
+    const btn = document.createElement("button");
     btn.textContent = answer;
 
-    btn.onclick = () => {
-      if (answer === q.correct) {
-        btn.classList.add("correct");
-        feedbackEl.textContent = "Correct!";
-        score++;
-      } else {
-        btn.classList.add("incorrect");
-        feedbackEl.textContent = "Wrong! Correct: " + q.correct;
-      }
-
-      Array.from(answersEl.children).forEach(b => b.disabled = true);
-      nextBtn.style.display = "block";
-    };
+    btn.onclick = () => selectAnswer(btn, answer, q.correct);
 
     answersEl.appendChild(btn);
   });
+
+  // Disable Previous button on first question
+  prevBtn.disabled = current === 0;
+}
+
+function selectAnswer(button, selected, correct) {
+  const buttons = document.querySelectorAll("#answers button");
+
+  buttons.forEach(btn => {
+    btn.disabled = true;
+    if (btn.textContent === correct) {
+      btn.classList.add("correct");
+    }
+  });
+
+  if (selected === correct) {
+    button.classList.add("correct");
+    feedbackEl.textContent = "Correct!";
+    score++;
+  } else {
+    button.classList.add("incorrect");
+    feedbackEl.textContent = "Wrong! Correct: " + correct;
+  }
+
+  scoreEl.textContent = "Score: " + score;
 }
 
 nextBtn.onclick = () => {
-  current++;
-  if (current < questions.length) {
+  if (current < questions.length - 1) {
+    current++;
     showQuestion();
-  } else {
-    quizEl.style.display = "none";
-    resultsEl.style.display = "block";
-    document.getElementById("finalScore").textContent =
-      `Final Score: ${score}/${questions.length}`;
   }
 };
 
-document.getElementById("restartBtn").onclick = () => {
+prevBtn.onclick = () => {
+  if (current > 0) {
+    current--;
+    showQuestion();
+  }
+};
+
+restartBtn.onclick = () => {
   current = 0;
   score = 0;
-  resultsEl.style.display = "none";
-  quizEl.style.display = "block";
   showQuestion();
 };
 

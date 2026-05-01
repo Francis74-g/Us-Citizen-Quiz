@@ -1,68 +1,111 @@
 body {
   font-family: Arial;
-  background: #f4f4f4;
+  background: #f30909;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 16px;
 }
 
 .quiz-container {
-  background: rgb(81, 157, 219);
-  padding: 20px;
-  width: 400px;
-  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-button {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
+/* Top section */
+.quiz-content {
+  padding: 24px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+#progress, #score {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+#question {
+  font-size: 1.2rem;
+  margin: 20px 0;
+}
+
+#answers {
+  display: grid;
+  gap: 10px;
+}
+
+#answers button {
+  padding: 12px;
+  border: 2px solid #ddd;
+  background: #f9fafb;
+  border-radius: 10px;
   cursor: pointer;
 }
 
+#answers button:hover:not(:disabled) {
+  background: #eef2ff;
+}
+
 .correct {
-  background: lightgreen;
+  background: lightgreen !important;
 }
 
 .incorrect {
-  background: lightcoral;
+  background: lightcoral !important;
 }
 
-#nextBtn {
-  display: none;
+#feedback {
+  margin-top: 12px;
+  font-weight: bold;
 }
 
-#results {
-  display: none;
+/* Bottom controls container */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  border-top: 1px solid #eee;
+  background: #fafafa;
 }
 
-/* Small phones */
+.controls button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+}
+
+.controls button:hover {
+  background: #1d4ed8;
+}
+
+.controls button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Mobile */
 @media (max-width: 480px) {
-  body {
-    align-items: flex-start;
-    padding: 12px;
+  .controls {
+    flex-direction: column;
   }
 
-  .quiz-container {
-    padding: 18px;
-    border-radius: 10px;
-  }
-
-  button {
-    padding: 12px;
+  .controls button {
+    margin: 5px 0;
   }
 }
-
-/* Very small screens */
-@media (max-width: 320px) {
-  .quiz-container {
-    padding: 14px;
-  }
-
-  button {
-    font-size: 0.9rem;
-  }
-}
-
